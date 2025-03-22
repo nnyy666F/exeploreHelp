@@ -54,12 +54,10 @@ namespace exeploreHelp
 			filePath = ReadFilePathFromConfig();
 			if (string.IsNullOrWhiteSpace(filePath))
 			{
-				Console.WriteLine("´ÓÅäÖÃÎÄ¼ş¶ÁÈ¡µÄÎÄ¼şÂ·¾¶ÎŞĞ§£¡");
+				Console.WriteLine("ä»é…ç½®æ–‡ä»¶è¯»å–çš„æ–‡ä»¶è·¯å¾„æ— æ•ˆï¼");
 				return;
 			}
-			Console.WriteLine($"¶ÁÈ¡µ½ÅäÖÃÎÄ¼şÖĞµÄÎÄ¼şÂ·¾¶: {filePath}");
-
-			// ³õÊ¼»¯ SHELLEXECUTEINFO
+			Console.WriteLine($"è¯»å–åˆ°é…ç½®æ–‡ä»¶ä¸­çš„æ–‡ä»¶è·¯å¾„: {filePath}");
 			SHELLEXECUTEINFO sei = new SHELLEXECUTEINFO();
 			sei.cbSize = Marshal.SizeOf(sei);
 			sei.lpVerb = "properties";                            
@@ -69,11 +67,11 @@ namespace exeploreHelp
 
 			if (!ShellExecuteEx(ref sei))
 			{
-				Console.WriteLine("ÎŞ·¨´ò¿ªÊôĞÔ´°¿Ú£¡");
+				Console.WriteLine("æ— æ³•æ‰“å¼€å±æ€§çª—å£ï¼");
 			}
 			else
 			{
-				Console.WriteLine("ÊôĞÔ´°¿ÚÒÑ´ò¿ª£¬Æô¶¯¶¨Ê±Æ÷¼ì²é´°¿Ú×´Ì¬...");
+				Console.WriteLine("å±æ€§çª—å£å·²æ‰“å¼€ï¼Œå¯åŠ¨å®šæ—¶å™¨æ£€æŸ¥çª—å£çŠ¶æ€...");
 				Thread.Sleep(5000);
 				checkWindowTimer = new ThreadingTimer(CheckWindowStatus, null, 0, 1000);
 			}
@@ -91,19 +89,19 @@ namespace exeploreHelp
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine($"¶ÁÈ¡ÅäÖÃÎÄ¼ş³öÏÖ´íÎó: {ex.Message}");
+				Console.WriteLine($"è¯»å–é…ç½®æ–‡ä»¶å‡ºç°é”™è¯¯: {ex.Message}");
 			}
 			return "";
 		}
 
 		private void CheckWindowStatus(object state)
 		{
-			string windowTitle = System.IO.Path.GetFileName(filePath) + " ÊôĞÔ";
+			string windowTitle = System.IO.Path.GetFileName(filePath) + " å±æ€§";
 			IntPtr hwnd = FindWindow(null, windowTitle);
 
 			if (hwnd == IntPtr.Zero)
 			{
-				Console.WriteLine("ÊôĞÔ´°¿ÚÒÑ¹Ø±Õ£¬Ö÷³ÌĞòÍË³ö¡£");
+				Console.WriteLine("å±æ€§çª—å£å·²å…³é—­ï¼Œä¸»ç¨‹åºé€€å‡ºã€‚");
 				Application.Exit();
 			}
 		}
